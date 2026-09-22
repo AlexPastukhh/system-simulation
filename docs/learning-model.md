@@ -1,196 +1,193 @@
 # Learning Model
 
-The project treats simulation primarily as a tool for learning systems.
+The project uses executable models primarily as instruments for understanding systems.
 
-This approach is most suitable for subject areas where understanding depends substantially on:
+The method is strongest when learning depends on mechanisms that can be made explicit: entities, state, rules, constraints, invariants, interactions, algorithms, processes, causal consequences, and changes through time.
 
-- entities and state;
-- algorithms and processes;
-- rules and constraints;
-- invariants;
-- interactions between parts of a system;
-- changes over time;
-- causal consequences of actions;
-- scenarios that can meaningfully be simulated.
+Examples include finance, software systems, networks, game economies, logistics, control systems, physical systems, ecology, and other subjects where meaningful system behavior can be represented. It is less suitable as the primary method for material that is mainly declarative, interpretive, aesthetic, or dependent on embodied practice, although simulation may still help with individual mechanisms inside those subjects.
 
-Examples include financial systems, software systems, networks, game mechanics and economies, physical systems, control systems, logistics, and other domains with sufficiently explicit mechanisms.
+## Core idea
 
-It is less useful as the primary learning method when the subject is mainly declarative, interpretive, aesthetic, or otherwise cannot be represented meaningfully through system behavior. Simulation may still be used for individual mechanisms inside such subjects.
-
-## Theory and executable models
-
-Learning progresses along two connected tracks:
+Theory and executable models are complementary:
 
 ```text
 Theory
   +
-Executable domain model
+Executable model
+  +
+Learning scenarios
+  +
+Observability
 ```
 
-Theory explains the concepts and mechanisms.
+Theory explains concepts and mechanisms. The model defines a deliberately bounded possible world. Scenarios exercise that world. Observability lets the learner inspect why the result happened.
 
-The executable model makes those mechanisms observable and allows them to be exercised through scenarios.
+A model is not valuable merely because it runs. It is valuable when it helps answer a learning question.
 
-Neither replaces the other.
+## Four separate progressions
 
-## Chapters
-
-A subject is divided into learning chapters.
-
-Each chapter introduces a coherent next layer of understanding.
-
-A chapter may contain several theoretical sections or paragraphs:
+The project keeps four dimensions separate:
 
 ```text
-Chapter
-├── § concept / mechanism
-├── § concept / mechanism
-├── § concept / mechanism
-└── executable model
+Learning progression
+C01 → C02 → C03 → ...
+
+Executable-model progression
+M01 → M02 → M03 → ...
+
+Simulation-capability progression
+SL0 → SL1 → SL2 → SL3 → SL4
+
+Software-release progression
+v0.1 → v0.2 → v1.0 → ...
 ```
 
-The chapter's executable model should contain the minimum system needed to exercise the mechanisms introduced by that chapter.
+A chapter number is not a software version. A mature application may contain a rich domain implementation while still presenting `C01 / M01` in an intentionally simplified form.
 
-A chapter therefore defines both:
+A model stage is also not required to add new classes. A chapter may be an integration chapter whose main purpose is to connect mechanisms learned earlier.
 
-1. a learning scope;
-2. a model scope.
+## Chapter as the learning unit
 
-## Progressive model development
-
-Models normally develop together with the curriculum.
+A chapter is a coherent next layer of understanding. It normally contains:
 
 ```text
-Chapter 01 → Model 01
-
-Chapter 02 → Model 02
-             extends the understood system
-
-Chapter 03 → Model 03
-             adds another mechanism
+learning goal
+prerequisites
+§ theoretical paragraphs
+important terminology
+model stage
+learning scenarios
+prediction questions
+observables
+learning payoff
+intentional omissions / assumptions
+exit criteria
+next question
 ```
 
-Later models may reuse and extend earlier domain capabilities.
+Several paragraphs may share one model and several scenarios. Not every paragraph requires another code abstraction.
 
-The purpose of progression is not to continuously increase realism. Complexity should be introduced when it enables a new piece of understanding.
+The canonical reusable design rules are in [`curriculum-design.md`](curriculum-design.md). A working contract is provided by [`learning-chapter-template.md`](learning-chapter-template.md).
 
-An early model may intentionally omit real-world mechanisms that are not yet relevant.
+## Scenario-centered learning loop
 
-For example:
+The preferred learning loop is:
 
 ```text
-Chapter: Commercial Bank
-
-Model:
-  Bank
-  Deposit
-  Loan
-  IssueLoan
-  RepayPrincipal
-
-Not modeled yet:
-  central-bank reserves
-  regulation
-  bank failure
-  government
+THEORY
+  ↓
+PREDICT
+  ↓
+RUN SCENARIO
+  ↓
+OBSERVE
+  ↓
+EXPLAIN
+  ↓
+MODIFY
+  ↓
+EXIT QUESTIONS
+  ↓
+NEXT CHAPTER
 ```
 
-The omission is deliberate. A later chapter can remove that simplification when the omitted mechanism becomes the subject of study.
+The prediction step matters. It exposes the learner's current causal model before the simulator reveals an answer.
 
-## Chapters are not software versions
+A scenario should therefore make explicit:
 
-Learning progression and software maturity are separate dimensions.
+- what the learner is asked to predict;
+- which action, process, or event is run;
+- which state transitions should be inspected;
+- which invariant, flow, timeline, or metric matters;
+- what conceptual distinction the scenario is intended to teach.
+
+## Progressive models
+
+Models normally grow together with the curriculum:
 
 ```text
-software:
-v0.1 → v0.2 → v1.0
-
-learning:
-Chapter 01 → Chapter 02 → Chapter 03
+C01 → M01
+C02 → M02 extends the understood world
+C03 → M03 adds another required mechanism
 ```
 
-A mature implementation should still be able to present an early chapter in its intentionally simplified form.
+The goal is not monotonically increasing realism. The goal is introducing exactly the complexity needed for the next piece of understanding.
 
-The underlying domain code may contain more capabilities than a chapter exposes.
+Early models may intentionally omit real mechanisms. This is a teaching device, not a claim that the omitted mechanism does not exist.
 
-## Paragraphs
+The reusable model and scenario rules are in [`executable-learning-model-design.md`](executable-learning-model-design.md).
 
-A chapter can be divided into smaller theoretical units.
+## Simulation complexity is earned
 
-Example:
+Simulation infrastructure is introduced only when the subject needs it:
 
 ```text
-Chapter 04 — Central Bank
-
-§4.1 Why banks need another kind of money
-§4.2 Reserve accounts
-§4.3 Settlement
-§4.4 Reserve shortage
-§4.5 Central-bank lending
-§4.6 Policy rate
+SL0 — manual deterministic state transitions
+SL1 — multi-entity transactional scenarios and operation chains
+SL2 — time, scheduling, accrual, maturity, periodic processes
+SL3 — agents, policies, controllers, feedback loops
+SL4 — repeated runs, randomness, parameter sweeps, sensitivity analysis
 ```
 
-Not every paragraph requires a new model. Several paragraphs can use one chapter model and different scenarios.
+Do not add a clock merely because simulations often have clocks. Do not add agents merely because the domain contains people or organizations. Do not add randomness unless uncertainty itself matters to the learning question.
 
-## Scenarios
+## Knowledge categories must stay visible
 
-A model becomes useful for learning through scenarios.
+A model should distinguish at least four kinds of statements:
 
-A scenario exercises one or more mechanisms of the chapter:
+1. **Identity / invariant** — true by the structure of the model, such as a balance-sheet equality.
+2. **Domain or institutional rule** — true because the modeled system defines it that way.
+3. **Behavioral assumption** — a chosen rule for how an actor behaves.
+4. **Empirical parameter** — a value estimated or calibrated from observed data.
 
-```text
-initial state
-    ↓
-actions / processes
-    ↓
-state transitions
-    ↓
-observable result
-```
+These categories must not be presented as interchangeable facts. This distinction becomes especially important in economics, social systems, ecology, and any domain with behavioral models.
 
-Scenarios can be manually controlled or driven through simulation infrastructure such as agents, scheduled processes, physical dynamics, randomness, or external events.
+## Bilingual terminology
 
-The goal is to make the mechanism inspectable rather than merely produce an outcome.
+The primary explanatory language may be Russian while important professional terms are introduced with their English equivalents:
 
-## Visualization
+> финансовое требование (**financial claim**)
 
-Visualization is used when it improves observability of the running model.
+> обязательство (**liability**)
 
-It may expose:
+> межбанковский расчёт (**interbank settlement**)
 
-- current state;
-- state transitions;
-- events;
-- flows;
-- timelines;
-- metrics over time.
+The translation does not need to be repeated in every sentence. It should appear at the first or conceptually important use and whenever a term has a potentially misleading translation.
 
-The visualization is secondary to the domain model and scenario. It should remain as simple as necessary to understand the mechanism being studied.
+Code and API vocabulary remains English so the executable model connects naturally to professional literature and tooling.
 
-Successful project-specific visualizations can be retained as examples and reused when similar needs appear.
+## Development process
 
-## Development principle
-
-The project should develop primarily by studying concrete subjects rather than by designing a universal simulation framework in advance.
-
-The preferred process is:
+For a new subject:
 
 ```text
 select subject
-    ↓
-analyze learning progression
-    ↓
-define chapter
-    ↓
-identify required domain mechanisms
-    ↓
-implement minimal executable model
-    ↓
-create scenarios
-    ↓
-add only the observability required to understand them
-    ↓
+  ↓
+define target understanding
+  ↓
+build dependency / question progression
+  ↓
+design chapters and paragraphs
+  ↓
+design the M progression
+  ↓
+design learning scenarios
+  ↓
+check omissions and assumptions
+  ↓
+implement the minimum executable model
+  ↓
+add only required observability
+  ↓
+validate the chapter as a learning experience
+  ↓
 continue to the next chapter
 ```
 
-Reusable simulation infrastructure and abstractions should be extracted when repeated needs appear across concrete models.
+The curriculum should normally be designed far enough ahead that implementation is following a learning progression rather than inventing the progression opportunistically from code.
+
+Reusable simulation infrastructure should be extracted only when concrete models demonstrate repeated needs.
+
+## Concrete application
+
+The first planned application of these principles is the finance curriculum in [`../curriculum/finance/ROADMAP.md`](../curriculum/finance/ROADMAP.md).
