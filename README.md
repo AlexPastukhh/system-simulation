@@ -13,9 +13,19 @@ The project separates:
 ## Documentation
 
 - [`docs/architecture.md`](docs/architecture.md) — project scopes and boundaries.
-- [`docs/learning-model.md`](docs/learning-model.md) — chapter-based learning progression tied to executable models.
+- [`docs/learning-model.md`](docs/learning-model.md) — overview of the learning-first approach and its synchronized progressions.
+- [`docs/curriculum-design.md`](docs/curriculum-design.md) — reusable principles for designing a subject, chapters, paragraphs, prerequisites, terminology, and exit criteria.
+- [`docs/executable-learning-model-design.md`](docs/executable-learning-model-design.md) — reusable principles for executable learning models, scenarios, simulation levels, assumptions, and observability.
+- [`docs/learning-chapter-template.md`](docs/learning-chapter-template.md) — reusable chapter contract/template.
 - [`docs/simulation-runtime.md`](docs/simulation-runtime.md) — time, drivers, agents, processes, scenarios, and execution.
 - [`docs/simulation-visualization.md`](docs/simulation-visualization.md) — observability-oriented visualization for running simulations.
+
+## Finance curriculum
+
+- [`curriculum/finance/ROADMAP.md`](curriculum/finance/ROADMAP.md) — planned finance learning progression, model stages, scenarios, and simulation progression.
+- [`curriculum/finance/ch01/README.md`](curriculum/finance/ch01/README.md) — the currently implemented Chapter 01 prototype.
+
+The finance roadmap is the planning baseline for future chapter work. The current Chapter 01 implementation predates that baseline and is intentionally left unchanged until a later implementation package aligns it.
 
 ## Current executable chapter
 
@@ -29,10 +39,6 @@ The first model supports:
 - transferring it between holders;
 - settling it;
 - observing explicit before/after simulation traces.
-
-Theory:
-
-[`curriculum/finance/ch01/README.md`](curriculum/finance/ch01/README.md)
 
 ## Run
 
@@ -53,14 +59,13 @@ The UI is intentionally a thin observer over the executable model. It does not o
 
 ## Development direction
 
-For each subject:
+The project grows through concrete subjects and keeps four progressions distinct:
 
-1. analyze the learning progression;
-2. define a chapter;
-3. identify the required domain mechanisms;
-4. implement the minimal executable model;
-5. create scenarios;
-6. add only the observability required to understand them;
-7. continue to the next chapter.
+```text
+learning:          C01 → C02 → C03 → ...
+model capability:  M01 → M02 → M03 → ...
+simulation level:  SL0 → SL1 → SL2 → ...
+software release:  v0.1 → v0.2 → v1.0 → ...
+```
 
-Reusable infrastructure should be extracted when repeated needs appear across concrete models.
+A new chapter should be designed before its implementation. Its scenarios should exist to test a concrete learner prediction and make a mechanism observable. Reusable framework abstractions should be extracted only after repeated needs appear across concrete models.
