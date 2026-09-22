@@ -1,3 +1,3 @@
-from .scenario import ClaimsChapterScenario
+from .scenario import FinancialClaimsScenario, LearningScenarioGuide, SCENARIO_GUIDES
 
-__all__ = ["ClaimsChapterScenario"]
+__all__ = ["FinancialClaimsScenario", "LearningScenarioGuide", "SCENARIO_GUIDES"]

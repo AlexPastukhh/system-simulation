@@ -1,8 +1,8 @@
-from system_simulation.curriculum.finance.ch01 import ClaimsChapterScenario
+from system_simulation.curriculum.finance.ch01 import FinancialClaimsScenario
 
 
 def main() -> None:
-    scenario = ClaimsChapterScenario()
+    scenario = FinancialClaimsScenario()
     scenario.run_complete(100)
     for frame in scenario.trace.frames:
         print(f"\nSTEP {frame.step}: {frame.event}")

@@ -1,4 +1,4 @@
+from .amount import CurrencyAmount
 from .claims import Claim, ClaimBook, ClaimError, Party
-from .money import Money
 
-__all__ = ["Claim", "ClaimBook", "ClaimError", "Party", "Money"]
+__all__ = ["CurrencyAmount", "Claim", "ClaimBook", "ClaimError", "Party"]
