@@ -7,21 +7,28 @@ _CENT = Decimal("0.01")
 
 
 @dataclass(frozen=True, order=True)
-class Money:
+class CurrencyAmount:
+    """A quantity denominated in a currency unit, not a monetary instrument."""
+
     amount: Decimal
     currency: str = "EUR"
 
     def __post_init__(self) -> None:
         amount = Decimal(self.amount).quantize(_CENT, rounding=ROUND_HALF_EVEN)
+        currency = self.currency.upper()
         if amount < 0:
-            raise ValueError("Money cannot be negative.")
-        if len(self.currency) != 3:
-            raise ValueError("Currency must be a three-letter code.")
+            raise ValueError("CurrencyAmount cannot be negative.")
+        if len(currency) != 3 or not currency.isalpha():
+            raise ValueError("Currency must be a three-letter alphabetic code.")
         object.__setattr__(self, "amount", amount)
-        object.__setattr__(self, "currency", self.currency.upper())
+        object.__setattr__(self, "currency", currency)
 
     @classmethod
-    def of(cls, amount: int | float | str | Decimal, currency: str = "EUR") -> "Money":
+    def of(
+        cls,
+        amount: int | float | str | Decimal,
+        currency: str = "EUR",
+    ) -> "CurrencyAmount":
         return cls(Decimal(str(amount)), currency)
 
     def __str__(self) -> str:

@@ -10,7 +10,7 @@ This roadmap applies the reusable learning and executable-model principles defin
 
 The finance subject is designed as a cumulative chain of questions. Each chapter introduces only the mechanisms needed for the next layer of understanding and pairs them with executable learning scenarios.
 
-The current executable `ch01` predates this roadmap. This roadmap intentionally does not change that code or chapter file; alignment is deferred to a later implementation package.
+The executable `ch01` is aligned with the `C01 / M01 / SL0` contract below. Later chapters remain planning targets until implemented.
 
 ## Course conventions
 
